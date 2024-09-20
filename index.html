@@ -1,58 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Year Progress Bar</title>
-  <style>
-    .progress-container {
-      width: 100%;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-      height: 30px;
-      position: relative;
-    }
-    .progress-bar {
-      height: 100%;
-      background-color: #3b82f6;
-      width: 0;
-      border-radius: 5px;
-      transition: width 0.5s ease;
-    }
-    .progress-text {
-      position: absolute;
-      width: 100%;
-      top: 0;
-      text-align: center;
-      line-height: 30px;
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Year Progress</title>
 </head>
 <body>
-  <div class="progress-container">
-    <div class="progress-bar" id="progress-bar"></div>
-    <div class="progress-text" id="progress-text">0.000000% Year Completed</div>
-  </div>
+    <h1>Year Progress</h1>
+    <img id="progress-img" src="https://github-year-progress-bar.vercel.app/year-progress" alt="Year Progress" style="width: 300px; height: 50px;">
 
-  <script>
-    function calculateProgress() {
-        const now = new Date();
-        const currentYear = now.getFullYear();
-        const start = new Date(currentYear, 0, 1);
-        const end = new Date(currentYear + 1, 0, 1);
-        const progress = ((now - start) / (end - start)) * 100;
-        const progressFormatted = progress.toFixed(6);
-
-        const progressBar = document.getElementById("progress-bar");
-        const progressText = document.getElementById("progress-text");
-        progressBar.style.width = progress + "%";
-        progressText.textContent = progressFormatted + "% of " + currentYear + " is Completed";
-    }
-
-    // Update every second
-    setInterval(calculateProgress, 1000);
-    calculateProgress(); // Initial call to set progress on page load
-  </script>
+    <script>
+        setInterval(() => {
+            document.getElementById('progress-img').src = `https://lgithub-year-progress-bar.vercel.app/year-progress?time=${Date.now()}`;
+        }, 1000);
+    </script>
 </body>
 </html>
