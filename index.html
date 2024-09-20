@@ -7,11 +7,11 @@
 </head>
 <body>
     <h1>Year Progress</h1>
-    <img id="progress-img" src="https://github-year-progress-bar.vercel.app/year-progress" alt="Year Progress" style="width: 300px; height: 50px;">
+    <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress" style="width: 300px; height: 50px;">
 
     <script>
         setInterval(() => {
-            document.getElementById('progress-img').src = `https://github-year-progress-bar.vercel.app/year-progress?time=${Date.now()}`;
+            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}`;
         }, 1000);
     </script>
 </body>
