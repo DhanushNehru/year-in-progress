@@ -37,17 +37,17 @@
 
   <script>
     function calculateProgress() {
-      const now = new Date();
-      const start = new Date(now.getFullYear(), 0, 1);
-      const end = new Date(now.getFullYear() + 1, 0, 1);
-      const progress = ((now - start) / (end - start)) * 100;
-      const progressFormatted = progress.toFixed(6);
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const start = new Date(currentYear, 0, 1);
+        const end = new Date(currentYear + 1, 0, 1);
+        const progress = ((now - start) / (end - start)) * 100;
+        const progressFormatted = progress.toFixed(6);
 
-      // Update progress bar and text
-      const progressBar = document.getElementById("progress-bar");
-      const progressText = document.getElementById("progress-text");
-      progressBar.style.width = progress + "%";
-      progressText.textContent = progressFormatted + "% Year Completed";
+        const progressBar = document.getElementById("progress-bar");
+        const progressText = document.getElementById("progress-text");
+        progressBar.style.width = progress + "%";
+        progressText.textContent = progressFormatted + "% of " + currentYear + " is Completed";
     }
 
     // Update every second
