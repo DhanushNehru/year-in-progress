@@ -1,3 +1,7 @@
+const express = require('express');
+const path = require('path');
+const app = express();
+
 app.get('/year-progress', (req, res) => {
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -31,3 +35,11 @@ app.get('/year-progress', (req, res) => {
   res.setHeader('Content-Type', 'image/svg+xml');
   res.send(svg);
 });
+
+// Serve the HTML page
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Year progress API running on port ${port}`));
