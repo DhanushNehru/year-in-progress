@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Year Progress</title>
+    <style>
+        body {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Light theme */
+        body {
+            background-color: white;
+            color: black;
+        }
+
+        /* Dark theme */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: black;
+                color: white;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Year Progress</h1>
