@@ -4,15 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Year Progress</title>
+    <style>
+        body {
+            transition: background-color 0.3s, color 0.3s;
+            padding: 20px; /* Adds padding around the body */
+        }
+        /* Light theme */
+        body {
+            background-color: white;
+            color: black;
+        }
+
+        /* Dark theme */
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
+
+        #theme-toggle {
+            margin-top: 5px; /* Adjust as needed */
+            padding: 10px;
+            cursor: pointer;
+            display: inline-block; /* Aligns the button to the left */
+        }
+
+        img {
+            display: block; /* Centers the image */
+            margin: 10px auto; /* Adds margin around the image for spacing */
+        }
+    </style>
 </head>
 <body>
     <h1>Year Progress</h1>
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress" style="width: 300px; height: 50px;">
+    
+    <!-- Button positioned directly below the progress bar and aligned to the left -->
+    <button id="theme-toggle">Switch to Dark Mode</button>
 
     <script>
-        setInterval(() => {
-            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}`;
-        }, 1000);
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Function to update theme
+        function updateTheme() {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                themeToggleButton.textContent = 'Switch to Dark Mode';
+            } else {
+                body.classList.add('dark-mode');
+                themeToggleButton.textContent = 'Switch to Light Mode';
+            }
+            updateProgressImg();
+        }
+
+        // Function to update progress image source based on theme
+        function updateProgressImg() {
+            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
+        }
+
+        themeToggleButton.addEventListener('click', updateTheme);
+        setInterval(updateProgressImg, 1000);
     </script>
 </body>
 </html>
