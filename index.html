@@ -8,9 +8,14 @@
 <body>
     <h1 id="title">Year Progress</h1>
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress" style="width: 300px; height: 50px;">
+    
     <script>
+        const userLang = navigator.language || navigator.userLanguage;
+        const langCode = userLang.split('-')[0];  // Language code
+        console.log(langCode);
+        
         setInterval(() => {
-            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}`;
+            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?lang=${langCode}&time=${Date.now()}`;
         }, 1000);
 
         const translations = {
@@ -20,13 +25,9 @@
             hi: {welcome: "वर्ष प्रगति"},
             ja: {welcome: "年間進捗状況"},
         };
-
-        const userLang = navigator.language || navigator.userLanguage;
-        const langCode = userLang.split('-')[0];  // Extract language code
-
-        //'en' if unsupported
+        
+        //'en' if unknown
         const selectedLang = translations[langCode] ? langCode : 'en';
-
         document.getElementById('title').textContent = translations[selectedLang].welcome;
     </script>
 </body>
