@@ -4,42 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Year Progress</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            transition: background-color 0.3s, color 0.3s;
-            padding: 20px; /* Adds padding around the body */
-            font-family: "Poppins", Arial, Helvetica, sans-serif;
-        }
-        /* Light theme */
-        body {
-            background-color: white;
-            color: black;
-        }
-
-        /* Dark theme */
-        body.dark-mode {
-            background-color: black;
-            color: white;
-        }
-
-        #theme-toggle {
-            margin-top: 5px; /* Adjust as needed */
-            padding: 10px;
-            cursor: pointer;
-            display: inline-block; /* Aligns the button to the left */
-        }
-
-        img {
-            display: block; /* Centers the image */
-            margin: 10px auto; /* Adds margin around the image for spacing */
-        }
-    </style>
 </head>
 <body>
     <h1 id="title">Year Progress</h1>
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress" style="width: 300px; height: 50px;">
-  
+    
     <script>
         const userLang = navigator.language || navigator.userLanguage;
         const langCode = userLang.split('-')[0];  // Language code
@@ -60,35 +29,6 @@
         //'en' if unknown
         const selectedLang = translations[langCode] ? langCode : 'en';
         document.getElementById('title').textContent = translations[selectedLang].welcome;
-    </srcipt>
-      
-    <!-- Button positioned directly below the progress bar and aligned to the left -->
-    <button id="theme-toggle">Switch to Dark Mode</button>
-
-    <script>
-        const themeToggleButton = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        // Function to update theme
-        function updateTheme() {
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                themeToggleButton.textContent = 'Switch to Dark Mode';
-            } else {
-                body.classList.add('dark-mode');
-                themeToggleButton.textContent = 'Switch to Light Mode';
-            }
-            updateProgressImg();
-        }
-
-        // Function to update progress image source based on theme
-        function updateProgressImg() {
-            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
-        }
-
-        themeToggleButton.addEventListener('click', updateTheme);
-        setInterval(updateProgressImg, 1000);
     </script>
 </body>
 </html>
