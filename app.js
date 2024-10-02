@@ -4,6 +4,7 @@ const app = express();
 
 app.get('/year-progress', (req, res) => {
     const now = new Date();
+    const currentYear = now.getFullYear();
 
     // Check if custom date range is provided
     const startDateParam = req.query.startDate;
@@ -18,10 +19,19 @@ app.get('/year-progress', (req, res) => {
         return res.status(400).send('Invalid start Date or end Date. Ensure the dates are in YYYY-MM-DD format and that startDate is before endDate.');
     }
 
-    // Format startDate and endDate for display in the progress bar
+    // Format the dates to ISO strings for display
     const startDateFormatted = start.toISOString().split('T')[0];
     const endDateFormatted = end.toISOString().split('T')[0];
 
+    // Compare the start and end dates with the default current year range
+    const isDefaultStartDate = start.getTime() === new Date(currentYear, 0, 1).getTime();
+    const isDefaultEndDate = end.getTime() === new Date(currentYear + 1, 0, 1).getTime();
+
+    // Display either the current year or the custom date range
+    const displayText = (!isDefaultStartDate || !isDefaultEndDate) 
+        ? `${startDateFormatted} to ${endDateFormatted}` 
+        : currentYear;
+    
     // Calculate progress within the date range
     const progress = ((now - start) / (end - start)) * 100;
     const progressFormatted = progress.toFixed(6);
@@ -44,7 +54,7 @@ app.get('/year-progress', (req, res) => {
             <rect width="100%" height="50" fill="${backgroundColor}" />
             <rect width="${progressFormatted}%" height="50" fill="${progressColor}" />
             <text x="50%" y="30" alignment-baseline="middle" text-anchor="middle" fill="${textColor}" font-size="12">
-                ${progressFormatted}% of ${startDateFormatted} to ${endDateFormatted} Completed
+                ${progressFormatted}% of ${displayText} Completed
             </text>
         </svg>
     `;
