@@ -1,0 +1,70 @@
+body {
+    transition: background-color 0.5s, color 0.5s;
+    padding: 20px;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 100px;
+    background: linear-gradient(to right, rgb(109, 190, 190), rgb(138, 147, 226));
+    text-align: center;
+}
+
+body.dark-mode {
+    background: linear-gradient(to right, rgb(15, 15, 49), rgb(2, 54, 56));
+    color: white;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+#theme-toggle {
+    margin-top: 5px;
+    padding: 10px;
+    cursor: pointer;
+    display: inline-block;
+    background-color: rgb(213, 184, 238);
+    border: none;
+    font-size: 1rem;
+}
+
+#progress-img {
+    display: block;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 1rem;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    #progress-img {
+        max-width: 350px;
+    }
+
+    #theme-toggle {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #progress-img {
+        max-width: 250px;
+    }
+
+    #theme-toggle {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+}

@@ -9,130 +9,15 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
         rel="stylesheet">
-    <style>
-        body {
-            transition: background-color 0.5s, color 0.5s;
-            padding: 20px;
-            font-family: "Poppins", Arial, Helvetica, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 100px;
-            background: linear-gradient(to right, rgb(109, 190, 190), rgb(138, 147, 226));
-            text-align: center;
-        }
-
-        body.dark-mode {
-            background: linear-gradient(to right, rgb(15, 15, 49), rgb(2, 54, 56));
-            color: white;
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
-
-        #theme-toggle {
-            margin-top: 5px;
-            padding: 10px;
-            cursor: pointer;
-            display: inline-block;
-            background-color: rgb(213, 184, 238);
-            border: none;
-            font-size: 1rem;
-        }
-
-        #progress-img {
-            display: block;
-            margin: 10px auto;
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            border-radius: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.75rem;
-            }
-
-            #progress-img {
-                max-width: 350px;
-            }
-
-            #theme-toggle {
-                font-size: 0.9rem;
-                padding: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            #progress-img {
-                max-width: 250px;
-            }
-
-            #theme-toggle {
-                font-size: 0.8rem;
-                padding: 6px;
-            }
-        }
-    </style>
 </head>
 
 <body>
     <h1>Year Progress</h1>
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress">
 
-    <!-- Button positioned directly below the progress bar and aligned to the left -->
     <button id="theme-toggle"><i>Switch to Dark Mode</i></button>
 
-    <script>
-        const themeToggleButton = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        // Function to determine if it's daytime (8 AM to 5 PM)
-        function isDayTime() {
-            const now = new Date();
-            const hours = now.getHours();
-            return hours >= 8 && hours < 17;
-        }
-
-        // Function to update theme based on time or user toggle
-        function updateTheme(isAutomatic = false) {
-            // If automatic and it's daytime, use light mode, otherwise use dark mode
-            if (isAutomatic) {
-                const isDay = isDayTime();
-                body.classList.toggle('dark-mode', !isDay);
-                themeToggleButton.textContent = isDay ? 'Switch to Dark Mode' : 'Switch to Light Mode';
-            } else {
-                // Manual toggle by user
-                body.classList.toggle('dark-mode');
-                themeToggleButton.textContent = body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
-            }
-            updateProgressImg();
-        }
-
-        // Update progress image based on current theme (light/dark)
-        function updateProgressImg() {
-            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
-        }
-
-        // Automatically set the theme based on the user's local time when the page loads
-        window.addEventListener('load', () => {
-            updateTheme(true);  // Pass true to indicate it's an automatic theme setting
-        });
-
-        // Allow the user to manually toggle the theme
-        themeToggleButton.addEventListener('click', () => updateTheme(false));
-
-        // Update the progress image every second
-        setInterval(updateProgressImg, 1000);
-    </script>
+    <script src="/scripts.js"></script>
 </body>
 
 </html>
