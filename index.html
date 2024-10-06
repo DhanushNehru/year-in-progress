@@ -33,20 +33,34 @@ body.dark-mode {
     padding: 10px;
     cursor: pointer;
     display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     background-color: rgb(213, 184, 238);
     /* transition: background-color 0.5s, color 0.5s; */
+}
+#theme-toggle:hover {
+  background-color: rgb(184, 238, 213);
+  transform: scale(1.02);
+  cursor: pointer;
 }
 
 #progress-img {
     display: block;
     margin: 10px auto;
     border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     /* transition: transform 0.5s, opacity 0.5s; */
 }
 
 #progress-img.loading {
     opacity: 0.5;
     transition: opacity 0.5s;
+}
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  #progress-img {
+    max-width: 95%; 
+    font-size: 1rem; 
+  }
 }
     </style>
 </head>
