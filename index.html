@@ -9,6 +9,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
         rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             transition: background-color 0.5s, color 0.5s;
@@ -33,13 +35,14 @@
         }
 
         #theme-toggle {
-            margin-top: 5px;
-            padding: 10px;
+            margin-top: 15px;
+            padding: 12px;
             cursor: pointer;
             display: inline-block;
             background-color: rgb(213, 184, 238);
             border: none;
             font-size: 1rem;
+            border-radius: 60%;
         }
 
         #progress-img {
@@ -88,7 +91,7 @@
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress">
 
     <!-- Button positioned directly below the progress bar and aligned to the left -->
-    <button id="theme-toggle"><i>Switch to Dark Mode</i></button>
+    <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
 
     <script>
         const themeToggleButton = document.getElementById('theme-toggle');
@@ -107,11 +110,11 @@
             if (isAutomatic) {
                 const isDay = isDayTime();
                 body.classList.toggle('dark-mode', !isDay);
-                themeToggleButton.textContent = isDay ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+                themeToggleButton.innerHTML = isDay ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
             } else {
                 // Manual toggle by user
                 body.classList.toggle('dark-mode');
-                themeToggleButton.textContent = body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+                themeToggleButton.innerHTML = body.classList.contains('dark-mode') ? '<i class="fa-solid fa-sun"></i>': '<i class="fa-solid fa-moon"></i>';
             }
             updateProgressImg();
         }
