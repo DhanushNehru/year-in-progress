@@ -99,3 +99,12 @@ You can change the date range and theme as per your requirement.
 ----
 
 Feel free to update the README.md or raise issues if any to enhance the project
+
+## Contributors 💖
+
+Thanks to all the amazing contributors who have helped make a thriving community! 🌟
+
+<a href="https://github.com/DhanushNehru/year-in-progress/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=DhanushNehru/year-in-progress" />
+</a>
+
