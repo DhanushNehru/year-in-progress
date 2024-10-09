@@ -39,11 +39,15 @@
             margin-top: 3rem;
             padding: 0.7rem;
             cursor: pointer;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: rgb(213, 184, 238);
             border: none;
             font-size: 1rem;
-            border-radius: 60%;
+            width:2rem;
+            height:2rem;
+            border-radius: 50%;
         }
 
         #progress-img {
@@ -91,7 +95,7 @@
     <h1>Year Progress</h1>
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress">
 
-    <!-- Button positioned directly below the progress bar and aligned to the left --> icon
+    <!-- Button positioned directly below the progress bar and aligned to the left --> 
     <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
