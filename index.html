@@ -7,11 +7,8 @@
     <title>Dynamic Year Progress</title>
     <link href="/styles.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
-        rel="stylesheet">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             transition: background-color 0.5s, color 0.5s;
@@ -45,8 +42,8 @@
             background-color: rgb(213, 184, 238);
             border: none;
             font-size: 1rem;
-            width:2rem;
-            height:2rem;
+            width: 2rem;
+            height: 2rem;
             border-radius: 50%;
         }
 
@@ -98,6 +95,13 @@
     <!-- Button positioned directly below the progress bar and aligned to the left --> 
     <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
 
+    <!-- New Date Range Inputs -->
+    <div class="date-inputs mt-3">
+        <input type="date" id="start-date" class="form-control" placeholder="Start Date">
+        <input type="date" id="end-date" class="form-control mt-2" placeholder="End Date">
+        <button id="update-progress" class="btn btn-primary mt-2">Update Progress</button>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         const themeToggleButton = document.getElementById('theme-toggle');
@@ -120,27 +124,39 @@
             } else {
                 // Manual toggle by user
                 body.classList.toggle('dark-mode');
-                themeToggleButton.innerHTML = body.classList.contains('dark-mode') ? '<i class="fa-solid fa-sun"></i>': '<i class="fa-solid fa-moon"></i>';
+                themeToggleButton.innerHTML = body.classList.contains('dark-mode') ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
             }
             updateProgressImg();
         }
 
         // Update progress image based on current theme (light/dark)
-        function updateProgressImg() {
+        function updateProgressImg(startDate = '', endDate = '') {
             const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
+            const url = new URL(`https://year-in-progress.vercel.app/year-progress`);
+            url.searchParams.append('theme', theme);
+            if (startDate) url.searchParams.append('startDate', startDate);
+            if (endDate) url.searchParams.append('endDate', endDate);
+            document.getElementById('progress-img').src = `${url}&time=${Date.now()}`;
         }
 
         // Automatically set the theme based on the user's local time when the page loads
         window.addEventListener('load', () => {
             updateTheme(true);  // Pass true to indicate it's an automatic theme setting
+            updateProgressImg(); // Update progress image on load
         });
 
         // Allow the user to manually toggle the theme
         themeToggleButton.addEventListener('click', () => updateTheme(false));
 
         // Update the progress image every second
-        setInterval(updateProgressImg, 500);
+        setInterval(() => updateProgressImg(), 500);
+
+        // Update the progress based on user-defined date range
+        document.getElementById('update-progress').addEventListener('click', () => {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            updateProgressImg(startDate, endDate);
+        });
     </script>
 </body>
 

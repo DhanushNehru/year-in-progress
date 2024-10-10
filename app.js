@@ -4,7 +4,6 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '/')));
 
-
 app.get('/year-progress', (req, res) => {
     const now = new Date();
     const currentYear = now.getFullYear();
@@ -31,14 +30,14 @@ app.get('/year-progress', (req, res) => {
     const isDefaultEndDate = end.getTime() === new Date(currentYear + 1, 0, 1).getTime();
 
     // Display either the current year or the custom date range
-    const displayText = (!isDefaultStartDate || !isDefaultEndDate) 
-        ? `${startDateFormatted} to ${endDateFormatted}` 
+    const displayText = (!isDefaultStartDate || !isDefaultEndDate)
+        ? `${startDateFormatted} to ${endDateFormatted}`
         : currentYear;
-    
+
     // Calculate progress within the date range
     const progress = ((now - start) / (end - start)) * 100;
     const progressFormatted = progress.toFixed(6);
-    
+
     // Default colors
     let backgroundColor = '#e0e0e0'; // light gray
     let progressColor = '#3b82f6'; // blue
@@ -53,12 +52,10 @@ app.get('/year-progress', (req, res) => {
     }
 
     const svg = `
-        <svg width="300" height="50" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="50" fill="${backgroundColor}" />
-            <rect width="${progressFormatted}%" height="50" fill="${progressColor}" />
-            <text x="50%" y="30" alignment-baseline="middle" text-anchor="middle" fill="${textColor}" font-size="12">
-                ${progressFormatted}% of ${displayText} Completed
-            </text>
+        <svg width="300" height="50">
+            <rect width="100%" height="100%" fill="${backgroundColor}" rx="10" ry="10"/>
+            <rect width="${progressFormatted}%" height="100%" fill="${progressColor}" rx="10" ry="10"/>
+            <text x="50%" y="50%" fill="${textColor}" font-size="16" font-family="Arial" dy=".3em" text-anchor="middle">${displayText} - ${progressFormatted}%</text>
         </svg>
     `;
 
@@ -66,11 +63,7 @@ app.get('/year-progress', (req, res) => {
     res.send(svg);
 });
 
-
-// Serve the HTML page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Year progress API running on port ${port}`));
