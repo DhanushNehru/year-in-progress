@@ -67,6 +67,22 @@
             background: transparent;
         }
 
+        @media (min-width: 768px) {
+            #random-msg-container {
+                margin-top: -70px;
+                width: 50%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #random-msg {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #25cc3b;
+            }
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.75rem;
@@ -84,6 +100,20 @@
             #animation-container {
                 width: 250px;
                 height: 250px;
+            }
+
+            #random-msg-container {
+                margin-top: -50px;
+                width: 50%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #random-msg {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #25cc3b;
             }
         }
 
@@ -105,7 +135,25 @@
                 width: 200px;
                 height: 200px;
             }
+
+            #random-msg-container {
+                margin-top: 10px;
+                width: 50%;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #random-msg {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #25cc3b;
+            }
         }
+
+        
+
+        
     </style>
 </head>
 
@@ -114,6 +162,10 @@
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress">
 
     <div id="animation-container"></div>
+
+    <div id="random-msg-container">
+        <h1 id="random-msg"></h1>
+    </div>
 
     <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
 
@@ -200,6 +252,8 @@
             setInterval(updateCubeScale, 1000);
         });
     </script>
+
+    <script src="js/randomMsg.js"></script>
 </body>
 
 </html>
