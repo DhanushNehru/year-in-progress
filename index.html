@@ -14,6 +14,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
+        :root {
+            --light-bg: linear-gradient(to right, rgb(109, 190, 190), rgb(138, 147, 226));
+            --dark-bg: linear-gradient(to right, rgb(15, 15, 49), rgb(2, 54, 56));
+            --light-color: black;
+            --dark-color: white;
+            --button-bg: rgb(213, 184, 238);
+            --progress-msg-color: #25cc3b;
+            --random-msg-color-day: #1b4421;
+            --random-msg-color-night: #25cc3b;
+        }
         body {
             transition: background-color 0.5s, color 0.5s;
             padding: 20px;
@@ -34,6 +44,7 @@
 
         h1 {
             font-size: 2rem;
+            font-family: Georgia, 'Times New Roman', Times, serif;
         }
 
         #theme-toggle {
@@ -78,8 +89,8 @@
 
             #random-msg {
                 font-size: 1rem;
-                font-weight: 400;
-                color: #25cc3b;
+            font-weight: 400;
+            color: var(--progress-msg-color);
             }
         }
 
@@ -152,11 +163,11 @@
         }
 
         body #random-msg {
-            color: #1b4421;
+            color: var(--random-msg-color-day);
         }
 
         body.dark-mode #random-msg {
-            color: #25cc3b;
+            color: var(--random-msg-color-night);
         }
     </style>
 </head>
