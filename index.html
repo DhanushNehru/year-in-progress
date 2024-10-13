@@ -2,276 +2,372 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Year Progress with 3D Animation</title>
-    <link href="/styles.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Year Progress with 3D Animation</title>
+  <link href="/styles.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
-        :root {
-            --light-bg: linear-gradient(to right, rgb(109, 190, 190), rgb(138, 147, 226));
-            --dark-bg: linear-gradient(to right, rgb(15, 15, 49), rgb(2, 54, 56));
-            --light-color: black;
-            --dark-color: white;
-            --button-bg: rgb(213, 184, 238);
-            --progress-msg-color: #25cc3b;
-            --random-msg-color-day: #1b4421;
-            --random-msg-color-night: #25cc3b;
-        }
-        body {
-            transition: background-color 0.5s, color 0.5s;
-            padding: 20px;
-            font-family: "Poppins", Arial, Helvetica, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 100px;
-            background: linear-gradient(to right, rgb(109, 190, 190), rgb(138, 147, 226));
-            text-align: center;
-        }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root {
+      --light-bg: linear-gradient(to right, rgb(109, 190, 190), rgb(138, 147, 226));
+      --dark-bg: linear-gradient(to right, rgb(15, 15, 49), rgb(2, 54, 56));
+      --light-color: black;
+      --dark-color: white;
+      --button-bg: rgb(213, 184, 238);
+      --progress-msg-color: #25cc3b;
+      --random-msg-color-day: #1b4421;
+      --random-msg-color-night: #25cc3b;
+    }
 
-        body.dark-mode {
-            background: linear-gradient(to right, rgb(15, 15, 49), rgb(2, 54, 56));
-            color: white;
-        }
+    body {
+      transition: background-color 0.5s, color 0.5s;
+      padding: 20px;
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 100px;
+      background: linear-gradient(to right, rgb(109, 190, 190), rgb(138, 147, 226));
+      text-align: center;
+    }
 
-        h1 {
-            font-size: 2rem;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
+    body.dark-mode {
+      background: linear-gradient(to right, rgb(15, 15, 49), rgb(2, 54, 56));
+      color: white;
+    }
 
-        #theme-toggle {
-            margin-top: 3rem;
-            padding: 0.7rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgb(213, 184, 238);
-            border: none;
-            font-size: 1rem;
-            width:2rem;
-            height:2rem;
-            border-radius: 50%;
-        }
+    h1 {
+      font-size: 2rem;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
 
-        #progress-img {
-            display: block;
-            margin: 10px auto;
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            border-radius: 1rem;
-        }
+    #theme-toggle {
+      margin-top: 3rem;
+      padding: 0.7rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgb(213, 184, 238);
+      border: none;
+      font-size: 1rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+    }
 
-        #animation-container {
-            width: 300px;
-            height: 300px;
-            margin: 20px auto;
-            background: transparent;
-        }
+    #progress-img {
+      display: block;
+      margin: 10px auto;
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      border-radius: 1rem;
+    }
 
-        @media (min-width: 768px) {
-            #random-msg-container {
-                margin-top: -70px;
-                width: 50%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
+    #animation-container {
+      width: 300px;
+      height: 300px;
+      margin: 20px auto;
+      background: transparent;
+    }
 
-            #random-msg {
-                font-size: 1rem;
-            font-weight: 400;
-            color: var(--progress-msg-color);
-            }
-        }
+    #arrow-down {
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #333;
+      margin: 5px auto;
+      animation: slideUpDown 2s ease-in-out infinite;
+    }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.75rem;
-            }
+    #contribution-container {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
 
-            #progress-img {
-                max-width: 350px;
-            }
+    #contribution-container p {
+      font-size: 16px;
+      margin: 0;
+      color: #333;
+      animation: slideUpDown 2s ease-in-out infinite;
+    }
 
-            #theme-toggle {
-                font-size: 0.9rem;
-                padding: 8px;
-            }
+    .github-icon {
+      width: 40px;
+      height: 40px;
+      animation: pulse 2s infinite;
+      cursor: pointer;
+      transition: filter 0.3s ease;
+    }
 
-            #animation-container {
-                width: 250px;
-                height: 250px;
-            }
+    .github-icon:hover {
+      filter: drop-shadow(-0.2rem 0 1rem #f0f0f0);
+    }
 
-            #random-msg-container {
-                margin-top: -50px;
-                width: 50%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
+    .github-icon.invert {
+      filter: invert(1);
+      transition: filter 0.3s ease;
+    }
 
-            #random-msg {
-                font-size: 1rem;
-                font-weight: 400;
-                color: #25cc3b;
-            }
-        }
+    .github-icon.invert:hover {
+      filter: invert(1) brightness(100) drop-shadow(-0.2rem 0 1rem #f0f0f0);
+    }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
+    /* Keyframes for the minimal slide animation */
+    @keyframes slideUpDown {
+      0% {
+        transform: translateY(0);
+      }
 
-            #progress-img {
-                max-width: 250px;
-            }
+      50% {
+        transform: translateY(-5px);
+      }
 
-            #theme-toggle {
-                font-size: 0.8rem;
-                padding: 6px;
-            }
+      100% {
+        transform: translateY(0);
+      }
+    }
 
-            #animation-container {
-                width: 200px;
-                height: 200px;
-            }
+    /* Pulse animation */
+    @keyframes pulse {
 
-            #random-msg-container {
-                margin-top: 10px;
-                width: 50%;
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-            }
+      0%,
+      100% {
+        transform: scale(1);
+      }
 
-            #random-msg {
-                font-size: 1rem;
-                font-weight: 400;
-                color: #25cc3b;
-            }
-        }
+      50% {
+        transform: scale(1.05);
+      }
+    }
 
-        body #random-msg {
-            color: var(--random-msg-color-day);
-        }
+    @media (min-width: 768px) {
+      #random-msg-container {
+        margin-top: -70px;
+        width: 50%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
 
-        body.dark-mode #random-msg {
-            color: var(--random-msg-color-night);
-        }
-    </style>
+      #random-msg {
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--progress-msg-color);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      #progress-img {
+        max-width: 350px;
+      }
+
+      #theme-toggle {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+
+      #animation-container {
+        width: 250px;
+        height: 250px;
+      }
+
+      #random-msg-container {
+        margin-top: -50px;
+        width: 50%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #random-msg {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #25cc3b;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      #progress-img {
+        max-width: 250px;
+      }
+
+      #theme-toggle {
+        font-size: 0.8rem;
+        padding: 6px;
+      }
+
+      #animation-container {
+        width: 200px;
+        height: 200px;
+      }
+
+      #random-msg-container {
+        margin-top: 10px;
+        width: 50%;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #random-msg {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #25cc3b;
+      }
+    }
+
+    body #random-msg {
+      color: var(--random-msg-color-day);
+    }
+
+    body.dark-mode #contribution-container p,
+    body.dark-mode #contribution-container #arrow-down #random-msg {
+      color: var(--random-msg-color-night);
+    }
+  </style>
 </head>
 
 <body>
-    <h1>Year Progress</h1>
-    <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress">
+  <h1>Year Progress</h1>
+  <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress">
 
-    <div id="animation-container"></div>
+  <div id="animation-container"></div>
 
-    <div id="random-msg-container">
-        <h1 id="random-msg"></h1>
-    </div>
+  <div id="random-msg-container">
+    <h1 id="random-msg"></h1>
+  </div>
 
-    <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
+  <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
-        const themeToggleButton = document.getElementById('theme-toggle');
-        const body = document.body;
+  <!-- GitHub image with animation -->
+  <div id="contribution-container">
+    <p>Contribute to here</p>
+    <div id="arrow-down"></div>
+    <a href="https://github.com/DhanushNehru/year-in-progress" target="_blank" rel="noopener noreferrer">
+      <img src="assets/github-mark.svg" alt="GitHub Logo" class="github-icon">
+    </a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script>
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const githubIcon = document.querySelector('.github-icon');
+    const body = document.body;
 
-        function isDayTime() {
-            const now = new Date();
-            const hours = now.getHours();
-            return hours >= 8 && hours < 17;
-        }
+    function isDayTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      return hours >= 8 && hours < 17;
+    }
 
-        function updateTheme(isAutomatic = false) {
-            if (isAutomatic) {
-                const isDay = isDayTime();
-                body.classList.toggle('dark-mode', !isDay);
-                themeToggleButton.innerHTML = isDay ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-            } else {
-                body.classList.toggle('dark-mode');
-                themeToggleButton.innerHTML = body.classList.contains('dark-mode') ? '<i class="fa-solid fa-sun"></i>': '<i class="fa-solid fa-moon"></i>';
-            }
-            updateProgressImg();
-        }
+    function updateTheme(isAutomatic = false) {
+      if (isAutomatic) {
+        const isDay = isDayTime();
+        body.classList.toggle('dark-mode', !isDay);
+        themeToggleButton.innerHTML = isDay ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+      } else {
+        body.classList.toggle('dark-mode');
+        themeToggleButton.innerHTML = body.classList.contains('dark-mode') ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+      }
+      updateProgressImg();
+      updateGitHubIcon();
+    }
 
-        function updateProgressImg() {
-            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-            document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
-        }
+    function updateProgressImg() {
+      const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+      document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
+    }
 
-        window.addEventListener('load', () => {
-            updateTheme(true);
-        });
+    function updateGitHubIcon() {
+      if (body.classList.contains('dark-mode')) {
+        githubIcon.classList.add('invert');
+      } else {
+        githubIcon.classList.remove('invert');
+      }
+    }
 
-        themeToggleButton.addEventListener('click', () => updateTheme(false));
+    window.addEventListener('load', () => {
+      updateTheme(true);
+    });
 
-        setInterval(updateProgressImg, 500);
+    themeToggleButton.addEventListener('click', () => updateTheme(false));
 
-        // 3D Animation
-        let scene, camera, renderer, cube;
+    setInterval(updateProgressImg, 500);
 
-        function init3D() {
-          scene = new THREE.Scene();
-          camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-          renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-          renderer.setSize(300, 300);
-          renderer.setClearColor(0x000000, 0); // This makes the background transparent
-          document.getElementById('animation-container').appendChild(renderer.domElement);
-      
-          const geometry = new THREE.BoxGeometry(2, 2, 2); // Increased from default 1,1,1
-          const material = new THREE.MeshBasicMaterial({ 
-              color: 0x00ff00, 
-              wireframe: true,
-              transparent: true,
-              opacity: 0.8
-          });
-          cube = new THREE.Mesh(geometry, material);
-          scene.add(cube);
-      
-          camera.position.z = 7; // Moved the camera back to keep the larger cube in view
-      
-          animate();
-     }
+    // 3D Animation
+    let scene, camera, renderer, cube;
 
-        function animate() {
-            requestAnimationFrame(animate);
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-            renderer.render(scene, camera);
-        }
+    function init3D() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+      renderer.setSize(300, 300);
+      renderer.setClearColor(0x000000, 0); // This makes the background transparent
+      document.getElementById('animation-container').appendChild(renderer.domElement);
 
-        function updateCubeScale() {
-           const now = new Date();
-           const start = new Date(now.getFullYear(), 0, 1);
-           const end = new Date(now.getFullYear() + 1, 0, 1);
-           const progress = (now - start) / (end - start);
-           const baseScale = 0.5; // This sets the minimum size of the cube
-           cube.scale.set(baseScale + progress, baseScale + progress, baseScale + progress);
-        }
+      const geometry = new THREE.BoxGeometry(2, 2, 2); // Increased from default 1,1,1
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x00ff00,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.8
+      });
+      cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
 
-        window.addEventListener('load', () => {
-            init3D();
-            setInterval(updateCubeScale, 1000);
-        });
-    </script>
+      camera.position.z = 7; // Moved the camera back to keep the larger cube in view
 
-    <script src="js/randomMsg.js"></script>
+      animate();
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+
+    function updateCubeScale() {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 1);
+      const end = new Date(now.getFullYear() + 1, 0, 1);
+      const progress = (now - start) / (end - start);
+      const baseScale = 0.5; // This sets the minimum size of the cube
+      cube.scale.set(baseScale + progress, baseScale + progress, baseScale + progress);
+    }
+
+    window.addEventListener('load', () => {
+      init3D();
+      setInterval(updateCubeScale, 1000);
+    });
+  </script>
+
+  <script src="js/randomMsg.js"></script>
 </body>
 
 </html>
-
-
-
