@@ -16,7 +16,6 @@ app.get('/year-progress', (req, res) => {
     // Parse the provided dates, or default to the current year
     let start = startDateParam ? new Date(startDateParam) : new Date(now.getFullYear(), 0, 1);
     let end = endDateParam ? new Date(endDateParam) : new Date(now.getFullYear() + 1, 0, 1);
-
     // Validate that start date is before end date
     if (isNaN(start.getTime()) || isNaN(end.getTime()) || start >= end) {
         return res.status(400).send('Invalid start Date or end Date. Ensure the dates are in YYYY-MM-DD format and that startDate is before endDate.');
@@ -65,8 +64,6 @@ app.get('/year-progress', (req, res) => {
     res.setHeader('Content-Type', 'image/svg+xml');
     res.send(svg);
 });
-
-
 // Serve the HTML page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
