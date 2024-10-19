@@ -143,12 +143,14 @@
       .github-icon.invert:hover {
         filter: invert(1) brightness(100) drop-shadow(-0.2rem 0 1rem #f0f0f0);
       }
-      .dateBox{
+      .dateBox {
         display: flex;
         gap: 10px;
         margin-bottom: 0.3em;
       }
-      .fromDate, .toDate, .submit{
+      .fromDate,
+      .toDate,
+      .submit {
         border-radius: 5px;
       }
       /* Keyframes for the minimal slide animation */
@@ -283,7 +285,13 @@
 
     <div id="animation-container"></div>
     <div class="dateBox">
-      <input type="date" class="fromDate" name="startDate" id="startDate" required />
+      <input
+        type="date"
+        class="fromDate"
+        name="startDate"
+        id="startDate"
+        required
+      />
       <input type="date" class="toDate" name="endDate" id="endDate" required />
       <button class="submit" onclick="changeDate()">Submit</button>
     </div>
@@ -343,11 +351,15 @@
       }
 
       function updateProgressImg() {
-        const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-        if(queryString){
-          document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?${queryString}&time=${Date.now()}&theme=${theme}`;  
-        } else{
-          document.getElementById('progress-img').src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
+        const theme = body.classList.contains("dark-mode") ? "dark" : "light";
+        if (queryString) {
+          document.getElementById(
+            "progress-img"
+          ).src = `https://year-in-progress.vercel.app/year-progress?${queryString}&time=${Date.now()}&theme=${theme}`;
+        } else {
+          document.getElementById(
+            "progress-img"
+          ).src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
         }
       }
 
@@ -413,16 +425,20 @@
           baseScale + progress,
           baseScale + progress
         );
-      }   
+      }
       window.addEventListener("load", () => {
         init3D();
         setInterval(updateCubeScale, 1000);
       });
       function changeDate() {
-        var startDate = document.getElementById("startDate").value;
-        var endDate = document.getElementById("endDate").value;
+        var startDate = new Date(document.getElementById("startDate").value);
+        var endDate = new Date(document.getElementById("endDate").value);
+        if (startDate.toDateString() == endDate.toDateString()) {
+          endDate.setDate(endDate.getDate() + 1);
+        }
+        startDate = startDate.toISOString();
+        endDate = endDate.toISOString();
         queryString = `startDate=${startDate}&endDate=${endDate}`;
-        console.log(queryString);
         document.getElementById(
           "progress-img"
         ).src = `https://year-in-progress.vercel.app/year-progress?${queryString}`;
