@@ -50,6 +50,12 @@
             height: auto;
             border-radius: 1rem;
     }
+    #counter {
+            font-size: 20px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
 
         @media (max-width: 768px) {
             h1 {
@@ -79,6 +85,9 @@
                 font-size: 0.8rem;
                 padding: 6px;
             }
+            #counter {
+            font-size: 12px;
+        }
         }
     </style>
 </head>
@@ -86,6 +95,8 @@
 <body>
     <h1>Year Progress</h1>
     <img id="progress-img" src="https://year-in-progress.vercel.app/year-progress" alt="Year Progress">
+    <!-- Days Before The Year Ends -->
+       <div id="counter"></div>
 
     <!-- Button positioned directly below the progress bar and aligned to the left -->
     <button id="theme-toggle" class="btn"><i>Switch to Dark Mode</i></button>
@@ -133,6 +144,24 @@
 
         // Update the progress image every second
         setInterval(updateProgressImg, 1000);
+          //Function For Days Untill The Year Ends
+        function tilYearEnd() {
+    const now = new Date();
+    const yearEnd = new Date(now.getFullYear(), 11, 31); 
+    const timeDiff = yearEnd.getTime() - now.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff;
+}
+
+function updateCounter() {
+    const daysLeft = tilYearEnd();
+    const counterElement = document.getElementById('counter');
+    counterElement.textContent = `${daysLeft} day${daysLeft !== 1 ? 's' : ''} left until the end of the year!`;
+}
+
+// Update the counter immediately and then every 24 hours
+updateCounter();
+setInterval(updateCounter, 24 * 60 * 60 * 1000);
     </script>
 </body>
 
