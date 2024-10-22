@@ -433,6 +433,10 @@
       function changeDate() {
         var startDate = new Date(document.getElementById("startDate").value);
         var endDate = new Date(document.getElementById("endDate").value);
+        if(endDate < startDate){
+          alert("Please enter valid Date");
+          return;
+        }
         if (startDate.toDateString() == endDate.toDateString()) {
           endDate.setDate(endDate.getDate() + 1);
         }
