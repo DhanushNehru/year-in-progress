@@ -272,6 +272,13 @@
       body.dark-mode #contribution-container #arrow-down #random-msg {
         color: var(--random-msg-color-night);
       }
+      .footer-link {
+        transition: color 0.3s;
+      }
+      .footer-link:hover {
+        color: #ffa500;
+        text-decoration: underline;
+      }
     </style>
   </head>
 
@@ -317,6 +324,51 @@
         />
       </a>
     </div>
+    <footer
+      style="
+        margin: 2rem 0 0 0;
+        padding: 1rem;
+        background-color: #10111c;
+        text-align: center;
+        color: #fff;
+      "
+    >
+      <p>
+        &copy; <span id="current-year"></span> Year in Progress. All rights
+        reserved.
+      </p>
+      <p>
+        Made with ❤️ by
+        <a
+          href="https://github.com/DhanushNehru"
+          target="_blank"
+          style="color: #fff; text-decoration: none"
+          class="footer-link"
+          >Dhanush Nehru</a
+        >
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+    </script>
+
+    <style>
+      .footer-link {
+        transition: color 0.3s;
+      }
+      .footer-link:hover {
+        color: #ffa500;
+        text-decoration: underline;
+      }
+    </style>
+
+    <script>
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+    </script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -433,7 +485,7 @@
       function changeDate() {
         var startDate = new Date(document.getElementById("startDate").value);
         var endDate = new Date(document.getElementById("endDate").value);
-        if(endDate < startDate){
+        if (endDate < startDate) {
           alert("Please enter valid Date");
           return;
         }
