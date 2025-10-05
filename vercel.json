@@ -2,15 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.js",
+      "src": "api/app.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/year-progress",
+      "dest": "/api/app.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/app.js"
+      "dest": "/api/app.js"
     }
-  ],
-  "outputDirectory": "."
+  ]
 }
