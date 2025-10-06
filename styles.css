@@ -161,7 +161,6 @@ h1 {
   #random-msg {
     font-size: 1rem;
     font-weight: 400;
-    color: var(--progress-msg-color);
   }
 }
 
