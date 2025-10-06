@@ -241,7 +241,7 @@ body.dark-mode #random-msg {
 }
 
 body.dark-mode #contribution-container p,
-body.dark-mode #contribution-container #arrow-down #random-msg {
+body.dark-mode #contribution-container #random-msg {
   color: var(--random-msg-color-night);
 }
 
