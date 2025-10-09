@@ -10,18 +10,29 @@ function isDayTime() {
   return hours >= 8 && hours < 17;
 }
 
+// Helper function to safely update theme icon
+function updateThemeIcon(iconType) {
+  const iconElement = themeToggleButton.querySelector('.theme-icon');
+  if (iconElement) {
+    iconElement.className = `fa-solid fa-${iconType} theme-icon`;
+  } else {
+    // Fallback: create new icon element if none exists
+    const newIcon = document.createElement('i');
+    newIcon.className = `fa-solid fa-${iconType} theme-icon`;
+    themeToggleButton.innerHTML = '';
+    themeToggleButton.appendChild(newIcon);
+  }
+}
+
 function updateTheme(isAutomatic = false) {
   if (isAutomatic) {
     const isDay = isDayTime();
     body.classList.toggle("dark-mode", !isDay);
-    themeToggleButton.innerHTML = isDay
-      ? '<i class="fa-solid fa-moon theme-icon"></i>'
-      : '<i class="fa-solid fa-sun theme-icon"></i>';
+    updateThemeIcon(isDay ? "moon" : "sun");
   } else {
     body.classList.toggle("dark-mode");
-    themeToggleButton.innerHTML = body.classList.contains("dark-mode")
-      ? '<i class="fa-solid fa-sun theme-icon"></i>'
-      : '<i class="fa-solid fa-moon theme-icon"></i>';
+    const isDarkMode = body.classList.contains("dark-mode");
+    updateThemeIcon(isDarkMode ? "sun" : "moon");
   }
   updateProgressImg();
   updateGitHubIcon();
@@ -55,7 +66,8 @@ window.addEventListener("load", () => {
 
 themeToggleButton.addEventListener("click", () => updateTheme(false));
 
-setInterval(updateProgressImg, 500);
+// Reduced frequency for better performance - update every 5 seconds instead of 500ms
+setInterval(updateProgressImg, 5000);
 
 // Date change functionality
 function changeDate() {

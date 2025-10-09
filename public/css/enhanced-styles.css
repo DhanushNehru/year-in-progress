@@ -150,10 +150,6 @@ footer {
 }
 
 /* Performance Optimizations */
-* {
-  box-sizing: border-box;
-}
-
 body {
   will-change: background-color;
 }

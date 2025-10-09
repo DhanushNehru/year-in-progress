@@ -9,6 +9,11 @@
   --random-msg-color-night: #25cc3b;
 }
 
+/* Universal box-sizing for better layout control */
+* {
+  box-sizing: border-box;
+}
+
 body {
   transition: background-color 0.5s, color 0.5s;
   padding: 20px;
