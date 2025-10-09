@@ -48,5 +48,10 @@ function updateCubeScale() {
 
 window.addEventListener("load", () => {
   init3D();
-  setInterval(updateCubeScale, 1000);
+  const cubeScaleIntervalId = setInterval(updateCubeScale, 1000);
+  
+  // Cleanup interval on page unload to prevent memory leaks
+  window.addEventListener("beforeunload", () => {
+    clearInterval(cubeScaleIntervalId);
+  });
 });

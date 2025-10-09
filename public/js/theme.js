@@ -2,7 +2,7 @@
 const themeToggleButton = document.getElementById("theme-toggle");
 const githubIcon = document.querySelector(".github-icon");
 const body = document.body;
-var queryString;
+let queryString;
 
 function isDayTime() {
   const now = new Date();
@@ -67,12 +67,17 @@ window.addEventListener("load", () => {
 themeToggleButton.addEventListener("click", () => updateTheme(false));
 
 // Reduced frequency for better performance - update every 5 seconds instead of 500ms
-setInterval(updateProgressImg, 5000);
+const progressImgIntervalId = setInterval(updateProgressImg, 5000);
+
+// Cleanup interval on page unload to prevent memory leaks
+window.addEventListener("beforeunload", () => {
+  clearInterval(progressImgIntervalId);
+});
 
 // Date change functionality
 function changeDate() {
-  var startDate = new Date(document.getElementById("startDate").value);
-  var endDate = new Date(document.getElementById("endDate").value);
+  let startDate = new Date(document.getElementById("startDate").value);
+  let endDate = new Date(document.getElementById("endDate").value);
   if (endDate < startDate) {
     alert("Please enter valid Date");
     return;
