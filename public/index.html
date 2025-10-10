@@ -28,10 +28,40 @@
   </head>
 
   <body>
-    <h1>Year Progress</h1>
+    <h1 id="title">Year Progress</h1>
+
+    <div style="text-align: center; margin: 1rem;">
+  <label id="chooseLangLabel" for="language">Choose Language:</label>
+  <select id="language" onchange="changeLanguage()">
+    <option value="en">English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="hi">Hindi</option>
+  </select>
+</div>
+
+<script>
+  function changeLanguage() {
+    const lang = document.getElementById("language").value;
+    const img = document.getElementById("progress-img");
+
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+
+    // Build query string
+    let qs = `lang=${lang}`;
+    if (startDate) qs += `&startDate=${startDate}`;
+    if (endDate) qs += `&endDate=${endDate}`;
+
+    img.src = `http://localhost:3000/year-progress?${qs}&time=${Date.now()}`;
+  }
+</script>
+
+ 
     <img
       id="progress-img"
-      src="https://year-in-progress.vercel.app/year-progress"
+      src="http://localhost:3000/year-progress"
       alt="Year Progress"
     />
 
@@ -114,6 +144,7 @@
       const githubIcon = document.querySelector(".github-icon");
       const body = document.body;
       var queryString;
+
       function isDayTime() {
         const now = new Date();
         const hours = now.getHours();
@@ -142,11 +173,11 @@
         if (queryString) {
           document.getElementById(
             "progress-img"
-          ).src = `https://year-in-progress.vercel.app/year-progress?${queryString}&time=${Date.now()}&theme=${theme}`;
+          ).src = `http://localhost:3000/year-progress?${queryString}&time=${Date.now()}&theme=${theme}`;
         } else {
           document.getElementById(
             "progress-img"
-          ).src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
+          ).src = `http://localhost:3000/year-progress?time=${Date.now()}&theme=${theme}`;
         }
       }
 
@@ -164,8 +195,9 @@
 
       themeToggleButton.addEventListener("click", () => updateTheme(false));
 
-      setInterval(updateProgressImg, 500);
+      // setInterval(updateProgressImg, 500);
 
+      
       // 3D Animation
       let scene, camera, renderer, cube;
 
@@ -232,7 +264,7 @@
         queryString = `startDate=${startDate}&endDate=${endDate}`;
         document.getElementById(
           "progress-img"
-        ).src = `https://year-in-progress.vercel.app/year-progress?${queryString}`;
+        ).src = `http://localhost:3000/year-progress?${queryString}`;
       }
     </script>
 
