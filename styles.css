@@ -9,6 +9,11 @@
   --random-msg-color-night: #25cc3b;
 }
 
+/* Universal box-sizing for better layout control */
+* {
+  box-sizing: border-box;
+}
+
 body {
   transition: background-color 0.5s, color 0.5s;
   padding: 20px;
@@ -39,12 +44,43 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(213, 184, 238);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  font-size: 1rem;
-  width: 2rem;
-  height: 2rem;
+  font-size: 1.2rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+#theme-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+#theme-toggle:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.theme-icon {
+  transition: all 0.3s ease;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#theme-toggle:hover .theme-icon {
+  transform: rotate(15deg) scale(1.1);
+}
+
+body.dark-mode #theme-toggle {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+body.dark-mode #theme-toggle:hover {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 }
 
 #progress-img {
@@ -107,6 +143,40 @@ h1 {
 
 .github-icon.invert:hover {
   filter: invert(1) brightness(100) drop-shadow(-0.2rem 0 1rem #f0f0f0);
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.github-link:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.github-text {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+body.dark-mode .github-link {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .github-link:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .dateBox {

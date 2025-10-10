@@ -24,6 +24,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="css/enhanced-styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   </head>
 
@@ -51,7 +52,9 @@
       <h1 id="random-msg"></h1>
     </div>
 
-    <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
+    <button id="theme-toggle" class="theme-toggle-btn" title="Toggle theme">
+      <i class="fa-solid fa-moon theme-icon"></i>
+    </button>
 
     <!-- GitHub image with animation -->
     <div id="contribution-container">
@@ -61,12 +64,15 @@
         href="https://github.com/DhanushNehru/year-in-progress"
         target="_blank"
         rel="noopener noreferrer"
+        class="github-link"
+        title="Visit GitHub Repository"
       >
         <img
           src="assets/githubmark.svg"
           alt="GitHub Logo"
           class="github-icon"
         />
+        <span class="github-text">GitHub</span>
       </a>
     </div>
     <footer
@@ -94,148 +100,14 @@
       </p>
     </footer>
 
-    <script>
-      document.getElementById("current-year").textContent =
-        new Date().getFullYear();
-    </script>
-
-    <script>
-      document.getElementById("current-year").textContent =
-        new Date().getFullYear();
-    </script>
-
+    <!-- External JavaScript files -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script>
-      const themeToggleButton = document.getElementById("theme-toggle");
-      const githubIcon = document.querySelector(".github-icon");
-      const body = document.body;
-      var queryString;
-      function isDayTime() {
-        const now = new Date();
-        const hours = now.getHours();
-        return hours >= 8 && hours < 17;
-      }
-
-      function updateTheme(isAutomatic = false) {
-        if (isAutomatic) {
-          const isDay = isDayTime();
-          body.classList.toggle("dark-mode", !isDay);
-          themeToggleButton.innerHTML = isDay
-            ? '<i class="fa-solid fa-moon"></i>'
-            : '<i class="fa-solid fa-sun"></i>';
-        } else {
-          body.classList.toggle("dark-mode");
-          themeToggleButton.innerHTML = body.classList.contains("dark-mode")
-            ? '<i class="fa-solid fa-sun"></i>'
-            : '<i class="fa-solid fa-moon"></i>';
-        }
-        updateProgressImg();
-        updateGitHubIcon();
-      }
-
-      function updateProgressImg() {
-        const theme = body.classList.contains("dark-mode") ? "dark" : "light";
-        if (queryString) {
-          document.getElementById(
-            "progress-img"
-          ).src = `https://year-in-progress.vercel.app/year-progress?${queryString}&time=${Date.now()}&theme=${theme}`;
-        } else {
-          document.getElementById(
-            "progress-img"
-          ).src = `https://year-in-progress.vercel.app/year-progress?time=${Date.now()}&theme=${theme}`;
-        }
-      }
-
-      function updateGitHubIcon() {
-        if (body.classList.contains("dark-mode")) {
-          githubIcon.classList.add("invert");
-        } else {
-          githubIcon.classList.remove("invert");
-        }
-      }
-
-      window.addEventListener("load", () => {
-        updateTheme(true);
-      });
-
-      themeToggleButton.addEventListener("click", () => updateTheme(false));
-
-      setInterval(updateProgressImg, 500);
-
-      // 3D Animation
-      let scene, camera, renderer, cube;
-
-      function init3D() {
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(300, 300);
-        renderer.setClearColor(0x000000, 0); // This makes the background transparent
-        document
-          .getElementById("animation-container")
-          .appendChild(renderer.domElement);
-
-        const geometry = new THREE.BoxGeometry(2, 2, 2); // Increased from default 1,1,1
-        const material = new THREE.MeshBasicMaterial({
-          color: 0x00ff00,
-          wireframe: true,
-          transparent: true,
-          opacity: 0.8,
-        });
-        cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
-
-        camera.position.z = 7; // Moved the camera back to keep the larger cube in view
-
-        animate();
-      }
-
-      function animate() {
-        requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        renderer.render(scene, camera);
-      }
-
-      function updateCubeScale() {
-        const now = new Date();
-        const start = new Date(now.getFullYear(), 0, 1);
-        const end = new Date(now.getFullYear() + 1, 0, 1);
-        const progress = (now - start) / (end - start);
-        const baseScale = 0.5; // This sets the minimum size of the cube
-        cube.scale.set(
-          baseScale + progress,
-          baseScale + progress,
-          baseScale + progress
-        );
-      }
-      window.addEventListener("load", () => {
-        init3D();
-        setInterval(updateCubeScale, 1000);
-      });
-      function changeDate() {
-        var startDate = new Date(document.getElementById("startDate").value);
-        var endDate = new Date(document.getElementById("endDate").value);
-        if (endDate < startDate) {
-          alert("Please enter valid Date");
-          return;
-        }
-        if (startDate.toDateString() == endDate.toDateString()) {
-          endDate.setDate(endDate.getDate() + 1);
-        }
-        startDate = startDate.toISOString();
-        endDate = endDate.toISOString();
-        queryString = `startDate=${startDate}&endDate=${endDate}`;
-        document.getElementById(
-          "progress-img"
-        ).src = `https://year-in-progress.vercel.app/year-progress?${queryString}`;
-      }
-    </script>
-
+    <script src="js/theme.js"></script>
+    <script src="js/animation.js"></script>
     <script src="js/randomMsg.js"></script>
   </body>
 </html>
