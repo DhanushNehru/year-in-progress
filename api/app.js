@@ -12,6 +12,9 @@ app.get("/year-progress", (req, res) => {
   const startDateParam = req.query.startDate;
   const endDateParam = req.query.endDate;
 
+  const lang = req.query.lang || "en";
+  
+
   let start = startDateParam
     ? new Date(startDateParam)
     : new Date(now.getFullYear(), 0, 1);
@@ -29,14 +32,24 @@ app.get("/year-progress", (req, res) => {
 
   const progress = ((now - start) / (end - start)) * 100;
   const progressFormatted = progress.toFixed(6);
-  const displayText = currentYear;
+  
+
+  const translations = {
+    en: `Completed`,
+    es: `Completado`,
+    fr: `Terminé`,
+    de: `Abgeschlossen`,
+    hi: `पूरा हुआ`,
+  };
+
+ const localizedText = `${progressFormatted}% of ${currentYear} ${translations[lang] || translations["en"]}`;
 
   const svg = `
     <svg width="300" height="50" xmlns="http://www.w3.org/2000/svg">
       <rect width="100%" height="50" fill="#e0e0e0" />
       <rect width="${progressFormatted}%" height="50" fill="#3b82f6" />
       <text x="50%" y="30" alignment-baseline="middle" text-anchor="middle" fill="#000" font-size="12">
-        ${progressFormatted}% of ${displayText} Completed
+        ${localizedText}
       </text>
     </svg>
   `;
@@ -48,6 +61,11 @@ app.get("/year-progress", (req, res) => {
 // Serve index.html for root
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
 
 module.exports = app;
